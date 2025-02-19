@@ -1,0 +1,6 @@
+@ICaNet.API_HostAddress = http://localhost:5237
+
+GET {{ICaNet.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
