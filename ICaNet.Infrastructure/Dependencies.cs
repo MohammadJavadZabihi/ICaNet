@@ -1,4 +1,5 @@
-﻿using ICaNet.Infrastructure.Identity;
+﻿using ICaNet.Infrastructure.Data;
+using ICaNet.Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,9 @@ namespace ICaNet.Infrastructure
         {
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("IdnetityConnetion")));
+
+            services.AddDbContext<CoreDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("CoreConnection")));
         }
     }
 }
