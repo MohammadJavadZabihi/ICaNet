@@ -1,5 +1,6 @@
 ﻿using ICaNet.ApplicationCore.Interfaces;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ICaNet.ApplicationCore.Entities.Products
 {
@@ -12,6 +13,9 @@ namespace ICaNet.ApplicationCore.Entities.Products
 
         [Required]
         public string UserId { get; set; }
+
+        [Required]
+        public int SupplierId { get; set; }
 
         [Required]
         [MaxLength(250)]
@@ -46,6 +50,14 @@ namespace ICaNet.ApplicationCore.Entities.Products
         #region Relations 
 
         public ICollection<ProductCategory> ProductCategories { get; set; }
+
+
+        [ForeignKey("SupplierId")]
+        public Supplier SuppLier { get; set; }
+
+
+        [ForeignKey("UnitOfMeasurementId")]
+        public UnitOfMeasurement UnitOfMeasurement { get; set; }
 
         #endregion
     }

@@ -4,6 +4,7 @@ using ICaNet.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ICaNet.Infrastructure.Infrastructure.Core
 {
     [DbContext(typeof(CoreDbContext))]
-    partial class CoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250221114819_AdddingMoreRealtionsInProductPlustAdd3Table")]
+    partial class AdddingMoreRealtionsInProductPlustAdd3Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,6 +90,9 @@ namespace ICaNet.Infrastructure.Infrastructure.Core
                     b.Property<int>("SuppLierdId")
                         .HasColumnType("int");
 
+                    b.Property<int>("SupplierId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UnitOfMeasurementId")
                         .HasColumnType("int");
 
@@ -95,6 +101,10 @@ namespace ICaNet.Infrastructure.Infrastructure.Core
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SuppLierdId");
+
+                    b.HasIndex("UnitOfMeasurementId");
 
                     b.ToTable("Products");
                 });
@@ -112,6 +122,101 @@ namespace ICaNet.Infrastructure.Infrastructure.Core
                     b.HasIndex("CategoryId");
 
                     b.ToTable("ProductCategories");
+                });
+
+            modelBuilder.Entity("ICaNet.ApplicationCore.Entities.Products.UnitOfMeasurement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("Symbol")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UnitOfMeasurement");
+                });
+
+            modelBuilder.Entity("ICaNet.ApplicationCore.Entities.Supplier", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("EmailAddress")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("PhysicalAddress")
+                        .IsRequired()
+                        .HasMaxLength(800)
+                        .HasColumnType("nvarchar(800)");
+
+                    b.Property<double>("RemainingAmount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Statuce")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaxNumber")
+                        .IsRequired()
+                        .HasMaxLength(900)
+                        .HasColumnType("nvarchar(900)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Supplier");
+                });
+
+            modelBuilder.Entity("ICaNet.ApplicationCore.Entities.Products.Product", b =>
+                {
+                    b.HasOne("ICaNet.ApplicationCore.Entities.Supplier", "SuppLier")
+                        .WithMany("Products")
+                        .HasForeignKey("SuppLierdId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ICaNet.ApplicationCore.Entities.Products.UnitOfMeasurement", "UnitOfMeasurement")
+                        .WithMany("Products")
+                        .HasForeignKey("UnitOfMeasurementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SuppLier");
+
+                    b.Navigation("UnitOfMeasurement");
                 });
 
             modelBuilder.Entity("ICaNet.ApplicationCore.Entities.Products.ProductCategory", b =>
@@ -141,6 +246,16 @@ namespace ICaNet.Infrastructure.Infrastructure.Core
             modelBuilder.Entity("ICaNet.ApplicationCore.Entities.Products.Product", b =>
                 {
                     b.Navigation("ProductCategories");
+                });
+
+            modelBuilder.Entity("ICaNet.ApplicationCore.Entities.Products.UnitOfMeasurement", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("ICaNet.ApplicationCore.Entities.Supplier", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

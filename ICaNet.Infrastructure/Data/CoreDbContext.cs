@@ -20,6 +20,8 @@ namespace ICaNet.Infrastructure.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            #region Product Realtions
+
             modelBuilder.Entity<ProductCategory>()
                 .HasKey(pc => new {pc.ProductId, pc.CategoryId});
 
@@ -32,6 +34,18 @@ namespace ICaNet.Infrastructure.Data
                 .HasOne(pc => pc.Category)
                 .WithMany(c => c.ProductCategories)
                 .HasForeignKey(pc => pc.CategoryId);
+
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.SuppLier)
+                .WithMany(p => p.Products)
+                .HasForeignKey(p => p.SuppLierdId);
+
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.UnitOfMeasurement)
+                .WithMany(p => p.Products)
+                .HasForeignKey(p => p.UnitOfMeasurementId);
+
+            #endregion
         }
     }
 }
