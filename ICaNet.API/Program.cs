@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using ICaNet.ApplicationCore.Constants;
 using ICaNet.ApplicationCore.Interfaces;
 using ICaNet.Infrastructure;
@@ -11,12 +12,26 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.AddConsole();
 
+#region ConfigurService
+
 Dependencies.ConfigureServices(builder.Configuration, builder.Services);
+
+#endregion
+
+#region Identity
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AppIdentityDbContext>();
 
+#endregion
+
+#region IOC
+
 builder.Services.AddScoped<ITokenClaimsService, IdentityTokenClaimService>();
+
+#endregion
+
+#region JwtAuthentication
 
 var key = Encoding.ASCII.GetBytes(AuthenticationConstants.JWT_SCRET_KEY);
 builder.Services.AddAuthentication(config =>
@@ -36,6 +51,30 @@ builder.Services.AddAuthentication(config =>
     };
 });
 
+#endregion
+
+#region ApiVerioning
+
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+    options.ApiVersionReader = ApiVersionReader.Combine
+    (
+        new QueryStringApiVersionReader("api-version"),
+        new HeaderApiVersionReader("x-api-version"),
+        new UrlSegmentApiVersionReader()
+    );
+});
+
+#endregion
+
+#region RateLimiter
+
+
+
+#endregion
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

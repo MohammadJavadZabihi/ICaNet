@@ -1,4 +1,4 @@
-﻿namespace ICaNet.API.AuthEndpoints
+﻿namespace ICaNer.Shared.Models
 {
     public class BaseRequest : BaseMessage
     {

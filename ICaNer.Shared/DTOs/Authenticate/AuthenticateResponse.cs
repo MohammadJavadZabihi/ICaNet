@@ -1,4 +1,6 @@
-﻿namespace ICaNet.API.AuthEndpoints
+﻿using ICaNer.Shared.Models;
+
+namespace ICaNer.Shared.DTOs.Authenticate
 {
     public class AuthenticateResponse : BaseResponse
     {

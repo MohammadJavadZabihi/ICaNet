@@ -1,15 +1,15 @@
-﻿namespace ICaNet.API
+﻿namespace ICaNer.Shared.Models
 {
     public abstract class BaseResponse : BaseMessage
     {
         public BaseResponse(Guid correaltionId) : base()
         {
-            base._correlationId = correaltionId;
+            _correlationId = correaltionId;
         }
 
         protected BaseResponse()
         {
-            
+
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace ICaNet.API
+﻿namespace ICaNer.Shared.Models
 {
     public abstract class BaseMessage
     {

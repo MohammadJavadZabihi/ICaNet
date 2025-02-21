@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Ardalis.ApiEndpoints" Version="4.1.0" />
+    <PackageReference Include="Asp.Versioning.Mvc" Version="8.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.13" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.13" />
@@ -27,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ICaNer.Shared\ICaNer.Shared.csproj" />
     <ProjectReference Include="..\ICaNet.ApplicationCore\ICaNet.ApplicationCore.csproj" />
     <ProjectReference Include="..\ICaNet.Infrastructure\ICaNet.Infrastructure.csproj" />
   </ItemGroup>
