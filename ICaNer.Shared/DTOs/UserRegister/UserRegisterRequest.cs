@@ -10,6 +10,7 @@ namespace ICaNer.Shared.DTOs.UserRegister
 {
     public class UserRegisterRequest : BaseRequest
     {
+        public bool RegisterWithPhone { get; set; } = false;
         public string Name { get; set; }
         public string Family { get; set; }
         public string EmailAddress { get; set; }

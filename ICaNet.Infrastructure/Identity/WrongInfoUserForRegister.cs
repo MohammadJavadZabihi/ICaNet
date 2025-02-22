@@ -8,7 +8,7 @@ namespace ICaNet.Infrastructure.Identity
 {
     public class WrongInfoUserForRegister : Exception
     {
-        public WrongInfoUserForRegister() : base("Cannot regsiter user. Pleas review the information!")
+        public WrongInfoUserForRegister() : base("Cannot regsiter user. Pleas chek the information!")
         {
             
         }

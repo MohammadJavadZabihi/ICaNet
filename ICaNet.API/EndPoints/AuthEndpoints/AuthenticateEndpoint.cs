@@ -6,9 +6,9 @@ using ICaNet.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ICaNet.API.AuthEndpoints;
+namespace ICaNet.API.EndPoints.AuthEndpoints;
 
-[Route("api/v{version:apiVersion}")]
+[Route("api/v{version:apiVersion}/authenticate")]
 [ApiVersion("1.0")]
 public class AuthenticateEndpoint : EndpointBaseAsync
     .WithRequest<AuthenticateRequest>
@@ -23,7 +23,7 @@ public class AuthenticateEndpoint : EndpointBaseAsync
         _userManager = userManager;
     }
 
-    [HttpPost("authenticate")]
+    [HttpPost("generateToken")]
     public override async Task<AuthenticateResponse> HandleAsync(AuthenticateRequest request,
         CancellationToken cancellationToken = default)
     {

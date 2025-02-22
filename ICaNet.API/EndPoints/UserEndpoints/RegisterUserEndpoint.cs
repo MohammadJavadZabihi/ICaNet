@@ -6,9 +6,9 @@ using ICaNet.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ICaNet.API.UserEndpoints;
+namespace ICaNet.API.EndPoints.UserEndpoints;
 
-[Route("api/v{version:apiversion}")]
+[Route("api/v{version:apiversion}/User")]
 [ApiVersion("1.0")]
 public class RegisterUserEndpoint : EndpointBaseAsync
     .WithRequest<UserRegisterRequest>
@@ -21,7 +21,7 @@ public class RegisterUserEndpoint : EndpointBaseAsync
         _userManager = userManager;
     }
 
-    [HttpPost("ResgisterUser")]
+    [HttpPost("Resgister")]
     public override async Task<UserRegisterResponse> HandleAsync(UserRegisterRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -36,25 +36,34 @@ public class RegisterUserEndpoint : EndpointBaseAsync
             PhoneNumber = request.PhoneNumber,
             UserName = request.Name,
             UserFamily = request.Family,
+            RegisterDate = DateTime.UtcNow,
+            SubscriptionExpiryDate = DateTime.UtcNow,
+            SubscriptionStartDate = DateTime.UtcNow,
         };
 
         var result = await _userManager.CreateAsync(resgiterUser, request.Password);
 
         if (result.Succeeded)
         {
-            response.Message = "ثبت نام شما با موفقیت انجام شده. لطفا برای تایید حساب کاربری خود به صندوق دریافتی ایمیل خود رفته و بر بروی لینک فرستاده شده کلیک نمایید ";
+            if (request.RegisterWithPhone)
+            {
+                response.Message = $"ثبت نام شما با موفقیت انجام شده. لطفا برای تایید حساب کاربری خود کد ارسال شده به شماره موبایل {request.PhoneNumber} را وارد نمایید ";
+            }
+            else
+            {
+                response.Message = "ثبت نام شما با موفقیت انجام شده. لطفا برای تایید حساب کاربری خود به صندوق دریافتی ایمیل خود رفته و بر بروی لینک فرستاده شده کلیک نمایید ";
+            }
         }
         else
         {
-            var d = result.Errors;
-
-            //| | | |
-            //v v v v
-            //Shuld be re work 
-            response.Message = result.Errors.FirstOrDefault().ToString();
+            foreach (var error in result.Errors)
+            {
+                response.ErrorMessages.Add(error.Description + " " + error.Code);
+            }
         }
         response.Result = result.Succeeded;
         response.Username = request.Name;
+        response.Email = request.EmailAddress;
 
         return response;
     }
