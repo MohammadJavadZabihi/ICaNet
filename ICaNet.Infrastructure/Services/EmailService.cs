@@ -7,11 +7,31 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using ICaNer.Shared.DTOs.Email;
+using Microsoft.AspNetCore.Identity;
+using ICaNet.Infrastructure.Identity;
 
 namespace ICaNet.Infrastructure.Services
 {
     public class EmailService : IEmailService
     {
+        private readonly UserManager<ApplicationUser> _userManager;
+        public EmailService(UserManager<ApplicationUser> userManager)
+        {
+            _userManager = userManager;
+        }
+
+        public async Task ConfrimEmail(string userId, string token)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null) throw new UserNotFoundExeption("");
+
+            if (user.EmailConfirmed) return;
+
+            var confrimEmail = await _userManager.ConfirmEmailAsync(user, token);
+
+
+        }
+
         public async Task SendEmailAsync(SendEmailDTO sendEmail)
         {
             var emailTemplatePath = Path.Combine(Directory.GetCurrentDirectory(), "EmailTemplates", "ConfirmEmail.html");

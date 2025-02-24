@@ -3,6 +3,7 @@ using ICaNet.ApplicationCore.Constants;
 using ICaNet.ApplicationCore.Interfaces;
 using ICaNet.Infrastructure;
 using ICaNet.Infrastructure.Identity;
+using ICaNet.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -21,13 +22,15 @@ Dependencies.ConfigureServices(builder.Configuration, builder.Services);
 #region Identity
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<AppIdentityDbContext>();
+    .AddEntityFrameworkStores<AppIdentityDbContext>()
+    .AddDefaultTokenProviders();
 
 #endregion
 
 #region IOC
 
 builder.Services.AddScoped<ITokenClaimsService, IdentityTokenClaimService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 #endregion
 

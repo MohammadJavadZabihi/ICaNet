@@ -10,5 +10,6 @@ namespace ICaNet.ApplicationCore.Interfaces
     public interface IEmailService
     {
         Task SendEmailAsync(SendEmailDTO sendEmail);
+        Task ConfrimEmail(string userId, string token);
     }
 }
