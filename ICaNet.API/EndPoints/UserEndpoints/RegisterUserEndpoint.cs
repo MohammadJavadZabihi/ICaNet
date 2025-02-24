@@ -11,7 +11,7 @@ using System.Text;
 
 namespace ICaNet.API.EndPoints.UserEndpoints;
 
-[Route("api/v{version:apiversion}/User")]
+[Route("api/v{version:apiversion}/user")]
 [ApiVersion("1.0")]
 public class RegisterUserEndpoint : EndpointBaseAsync
     .WithRequest<UserRegisterRequest>

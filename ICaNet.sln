@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICaNet.GenerateKey", "ICaNe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICaNer.Shared", "ICaNer.Shared\ICaNer.Shared.csproj", "{D0A26196-9FDD-4AAD-BA51-F1FB2B3625D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICaNet.WindowsApp", "ICaNet.WindowsApp\ICaNet.WindowsApp.csproj", "{F9AF0325-BA08-4740-9384-2F7143B86FF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{D0A26196-9FDD-4AAD-BA51-F1FB2B3625D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0A26196-9FDD-4AAD-BA51-F1FB2B3625D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0A26196-9FDD-4AAD-BA51-F1FB2B3625D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9AF0325-BA08-4740-9384-2F7143B86FF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9AF0325-BA08-4740-9384-2F7143B86FF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9AF0325-BA08-4740-9384-2F7143B86FF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9AF0325-BA08-4740-9384-2F7143B86FF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
