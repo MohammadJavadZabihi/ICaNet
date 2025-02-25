@@ -1,0 +1,80 @@
+﻿<Window x:Class="ICaNet.WindowsApp.Views.RegisterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ICaNet.WindowsApp.Views"
+        mc:Ignorable="d"
+        Title="RegisterWindow" Height="700" Width="1000" WindowStyle="None" Background="Transparent" WindowStartupLocation="CenterScreen" AllowsTransparency="True" ShowInTaskbar="False" Topmost="True" Loaded="Window_Loaded" MouseLeftButtonDown="Window_MouseLeftButtonDown" ResizeMode="NoResize">
+
+    <Border Background="#FFFFFF" CornerRadius="20">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="19*"/>
+            </Grid.RowDefinitions>
+
+            <Image Source="/Images/LoginAndRegisterPic.jpg" RenderTransformOrigin="0.5,0.5" Margin="450,12,-163,23" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-90"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+
+            <StackPanel Grid.Column="1">
+                <Button x:Name="btnExite" Style="{StaticResource exiteBtn}" Content="X" Margin="0 6 20 0"  HorizontalAlignment="Right" Click="btnExite_Click"/>
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">
+                <TextBlock Text="به آیکانت خوش آمدید" HorizontalAlignment="Center" FontFamily="Vazir" FontSize="30" FontWeight="Bold"/>
+
+                <TextBlock Text="اولین حسابداری بر پایه هوش مصنوعی" HorizontalAlignment="Center" FontFamily="Vazir" FontSize="15" FontWeight="Light" Margin="0 5 0 0" Foreground="#4C585B"/>
+               
+                <TextBox Style="{StaticResource textBoxStyle}" Margin="0 20 0 0" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource TextBoxtTemplate}"/>
+
+                <TextBox Style="{StaticResource textBoxStyle}" Margin="0 20 0 0" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource TextBoxtTemplate}"/>
+
+                <TextBox Style="{StaticResource textBoxStyle}" Margin="0 20 0 0" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource TextBoxtTemplate}"/>
+
+                <TextBox Style="{StaticResource textBoxStyle}" Margin="0 20 0 0" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource TextBoxtTemplate}"/>
+
+                <TextBox Style="{StaticResource textBoxStyle}" Margin="0 20 0 0" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource TextBoxtTemplate}"/>
+
+                <PasswordBox Style="{StaticResource passwordBoxStyle}" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource PasswordboxTempalte}" Margin="0 20 0 0"/>
+
+                <PasswordBox Style="{StaticResource passwordBoxStyle}" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource PasswordboxTempalte}" Margin="0 20 0 0"/>
+
+
+                <Button  Content="ورود" Style="{StaticResource btnLogin}" Margin="0 20 0 0" Background="#2B2B2B" Foreground="#FFFFFF"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 30 0 0">
+
+                    <Button Style="{StaticResource btn}" Height="20" Content="آن را بازیابی کنید" FontSize="12" Background="Transparent" Width="90" Foreground="#0074ff">
+
+                    </Button>
+
+                    <TextBlock Text="رمز عبور خود را فراموش کردید؟" HorizontalAlignment="Center" FontFamily="Vazir" FontSize="13" FontWeight="Light"/>
+
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
+
+                    <Button x:Name="btnLogin" Style="{StaticResource btn}" Height="20" Content="همین حالا وارد شوید" FontSize="12" Background="Transparent" Width="122" Foreground="#0074ff" Click="btnLogin_Click"/>
+
+                    <TextBlock Text="حساب کاربری دارید؟" HorizontalAlignment="Center" FontFamily="Vazir" FontSize="13" FontWeight="Light"/>
+
+                </StackPanel>
+
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

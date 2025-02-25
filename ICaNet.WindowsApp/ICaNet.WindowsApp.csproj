@@ -8,4 +8,20 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Images\LoginAndRegisterPic.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ApiRequest.Net" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ICaNer.Shared\ICaNer.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\LoginAndRegisterPic.jpg" />
+  </ItemGroup>
+
 </Project>

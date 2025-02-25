@@ -29,7 +29,8 @@ namespace ICaNet.Infrastructure.Identity
 
             var rols = await _userManager.GetRolesAsync(user);
 
-            var claims = new List<Claim> { new Claim(ClaimTypes.Name, userName)};
+            var claims = new List<Claim> { new Claim(ClaimTypes.Name, userName),
+                                           new Claim("UserId", user.Id)};
 
             foreach (var role in rols)
             {

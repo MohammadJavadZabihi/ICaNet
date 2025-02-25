@@ -2,16 +2,16 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:ICaNet.WindowsApp"
-             StartupUri="MainWindow.xaml">
+             StartupUri="/Views/LoginWindow.xaml">
     <Application.Resources>
         <Style x:Key="textBoxStyle" TargetType="TextBox">
-            <Setter Property="Width" Value="450"/>
+            <Setter Property="Width" Value="400"/>
             <Setter Property="Height" Value="35"/>
             <Setter Property="FontFamily" Value="Vazir"/>   
         </Style>
         
         <Style x:Key="passwordBoxStyle" TargetType="PasswordBox">
-            <Setter Property="Width" Value="450"/>
+            <Setter Property="Width" Value="400"/>
             <Setter Property="Height" Value="35"/>
             <Setter Property="FontFamily" Value="Vazir"/>
         </Style>
@@ -79,6 +79,32 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <Style x:Key="exiteBtn" TargetType="Button">
+            <Setter Property="FontFamily" Value="Vazir"/>
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="Width" Value="28"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#E52020"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="#E52020"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
     </Application.Resources>
