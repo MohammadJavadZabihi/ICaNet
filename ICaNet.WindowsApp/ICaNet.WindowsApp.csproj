@@ -9,11 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Loading.gif" />
     <None Remove="Images\LoginAndRegisterPic.jpg" />
+    <None Remove="Views\CustomeLoading\Loading.gif" />
+    <None Remove="Views\CustomeLoading\Loading3.gif" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="ApiRequest.Net" Version="1.1.0" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +26,8 @@
 
   <ItemGroup>
     <Resource Include="Images\LoginAndRegisterPic.jpg" />
+    <Resource Include="Views\CustomeLoading\Loading.gif" />
+    <Resource Include="Views\CustomeLoading\Loading3.gif" />
   </ItemGroup>
 
 </Project>

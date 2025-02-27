@@ -7,9 +7,40 @@
         <Style x:Key="textBoxStyle" TargetType="TextBox">
             <Setter Property="Width" Value="400"/>
             <Setter Property="Height" Value="35"/>
-            <Setter Property="FontFamily" Value="Vazir"/>   
+            <Setter Property="FontFamily" Value="Vazir"/>
+            <Setter Property="HorizontalContentAlignment" Value="Right"/>
         </Style>
-        
+
+        <Style x:Key="WatermarkTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid>
+                            <!-- بخش اصلی که متن تایپ‌شده نمایش داده می‌شود -->
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                            <!-- TextBlock به عنوان Watermark -->
+                            <TextBlock x:Name="WatermarkText"
+                                   Text="{TemplateBinding Tag}"
+                                   Foreground="Gray"
+                                   Margin="4,2,0,0"
+                                   IsHitTestVisible="False"
+                                   Visibility="Collapsed"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!-- وقتی TextBox خالی است، watermark نمایش داده شود -->
+                            <Trigger Property="Text" Value="">
+                                <Setter TargetName="WatermarkText" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                            <!-- وقتی TextBox فوکوس دارد، watermark پنهان شود -->
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="WatermarkText" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="passwordBoxStyle" TargetType="PasswordBox">
             <Setter Property="Width" Value="400"/>
             <Setter Property="Height" Value="35"/>
@@ -17,15 +48,61 @@
         </Style>
 
         <ControlTemplate x:Key="PasswordboxTempalte" TargetType="{x:Type PasswordBox}">
-            <Border Background="{TemplateBinding Background}" x:Name="Bd" BorderBrush="#1e1e1e" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
-                <ScrollViewer Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
-            </Border>
+            <Grid>
+                <Border Background="{TemplateBinding Background}"
+    x:Name="Bd"
+    BorderBrush="#1e1e1e"
+    BorderThickness="{TemplateBinding BorderThickness}"
+    CornerRadius="10">
+                    <ScrollViewer Name="PART_ContentHost"
+              SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                </Border>
+                <TextBlock x:Name="WatermarkText"
+       Text="{TemplateBinding Tag}"
+       Foreground="Gray"
+       Margin="0,0,10,0"
+       VerticalAlignment="Center"
+       HorizontalAlignment="Right"
+       IsHitTestVisible="False"
+       Visibility="Collapsed"/>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Password" Value="">
+                    <Setter TargetName="WatermarkText" Property="Visibility" Value="Visible"/>
+                </Trigger>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter TargetName="WatermarkText" Property="Visibility" Value="Collapsed"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
         </ControlTemplate>
 
         <ControlTemplate x:Key="TextBoxtTemplate" TargetType="{x:Type TextBox}">
-            <Border Background="{TemplateBinding Background}" x:Name="Bd" BorderBrush="#1e1e1e" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
-                <ScrollViewer Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
-            </Border>
+            <Grid>
+                <Border Background="{TemplateBinding Background}"
+                x:Name="Bd"
+                BorderBrush="#1e1e1e"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="10">
+                    <ScrollViewer Name="PART_ContentHost"
+                          SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                </Border>
+                <TextBlock x:Name="WatermarkText"
+                   Text="{TemplateBinding Tag}"
+                   Foreground="Gray"
+                   Margin="0,0,10,0"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Right"
+                   IsHitTestVisible="False"
+                   Visibility="Collapsed"/>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Text" Value="">
+                    <Setter TargetName="WatermarkText" Property="Visibility" Value="Visible"/>
+                </Trigger>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter TargetName="WatermarkText" Property="Visibility" Value="Collapsed"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
         </ControlTemplate>
 
         <Style x:Key="btnLogin" TargetType="Button">

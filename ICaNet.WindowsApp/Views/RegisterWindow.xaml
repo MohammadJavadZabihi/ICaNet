@@ -38,21 +38,20 @@
                 <TextBlock Text="به آیکانت خوش آمدید" HorizontalAlignment="Center" FontFamily="Vazir" FontSize="30" FontWeight="Bold"/>
 
                 <TextBlock Text="اولین حسابداری بر پایه هوش مصنوعی" HorizontalAlignment="Center" FontFamily="Vazir" FontSize="15" FontWeight="Light" Margin="0 5 0 0" Foreground="#4C585B"/>
-               
-                <TextBox Style="{StaticResource textBoxStyle}" Margin="0 20 0 0" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource TextBoxtTemplate}"/>
+
+                <TextBox x:Name="txtUserName" Tag="نام" Style="{StaticResource textBoxStyle}" Margin="0 20 0 0" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource TextBoxtTemplate}"/>
+
+                <TextBox Style="{StaticResource textBoxStyle}" Margin="0 20 0 0" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource TextBoxtTemplate}" Tag="نام خانوادگی" />
+
+                <TextBox Style="{StaticResource textBoxStyle}" Margin="0 20 0 0" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource TextBoxtTemplate}" Tag="آدرس ایمیل"/>
+
+                <TextBox Style="{StaticResource textBoxStyle}" Margin="0 20 0 0" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource TextBoxtTemplate}" Tag="شماره تلفن همراه"/>
 
                 <TextBox Style="{StaticResource textBoxStyle}" Margin="0 20 0 0" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource TextBoxtTemplate}"/>
 
-                <TextBox Style="{StaticResource textBoxStyle}" Margin="0 20 0 0" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource TextBoxtTemplate}"/>
+                <PasswordBox Style="{StaticResource passwordBoxStyle}" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource PasswordboxTempalte}" Margin="0 20 0 0" Tag="کلمه عبور" />
 
-                <TextBox Style="{StaticResource textBoxStyle}" Margin="0 20 0 0" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource TextBoxtTemplate}"/>
-
-                <TextBox Style="{StaticResource textBoxStyle}" Margin="0 20 0 0" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource TextBoxtTemplate}"/>
-
-                <PasswordBox Style="{StaticResource passwordBoxStyle}" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource PasswordboxTempalte}" Margin="0 20 0 0"/>
-
-                <PasswordBox Style="{StaticResource passwordBoxStyle}" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource PasswordboxTempalte}" Margin="0 20 0 0"/>
-
+                <TextBox Style="{StaticResource textBoxStyle}" Tag ="آدرس" FontSize="15"  Template="{StaticResource TextBoxtTemplate}" Margin="0 20 0 0" Height="73" TextWrapping="Wrap" VerticalContentAlignment="Top" />
 
                 <Button  Content="ورود" Style="{StaticResource btnLogin}" Margin="0 20 0 0" Background="#2B2B2B" Foreground="#FFFFFF"/>
 

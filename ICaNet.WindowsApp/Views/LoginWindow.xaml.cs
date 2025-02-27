@@ -1,19 +1,23 @@
 ﻿using ApiRequest.Net.CallApi;
 using ICaNer.Shared.DTOs.Authenticate;
-using ICaNet.WindowsApp.Views;
+using ICaNet.WindowsApp.Views.CustomeLoading;
 using ICaNet.WindowsApp.Views.CustomeMessageBox;
 using System.Configuration;
+using System.Net;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 
-namespace ICaNet.WindowsApp
+namespace ICaNet.WindowsApp.Views
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for LoginWindow.xaml
+    /// </summary>
+    public partial class LoginWindow : Window
     {
         private string? apiUrl = ConfigurationManager.AppSettings["ApiURL"];
         private string? apiVersion = ConfigurationManager.AppSettings["ApiVersion"];
-        public MainWindow()
+        public LoginWindow()
         {
             InitializeComponent();
         }
@@ -48,8 +52,8 @@ namespace ICaNet.WindowsApp
         {
             if (string.IsNullOrEmpty(txtUserName.Text) || string.IsNullOrEmpty(txtPassword.Password))
             {
-                CustomMessageBox customMessageBox = new CustomMessageBox("خطای کاربر","لطفا فیلدهای مورد نیاز را پر نمایید!", "باشه", "", false);
-                customMessageBox.ShowDialog();
+                CustomMessageBox nullFieldErrorMessage = new CustomMessageBox("خطای کاربر", "لطفا فیلدهای مورد نیاز را پر نمایید!", "باشه", "", false);
+                nullFieldErrorMessage.ShowDialog();
             }
             else
             {
@@ -61,19 +65,45 @@ namespace ICaNet.WindowsApp
                     Password = txtPassword.Password,
                 };
 
+                this.IsEnabled = false;
+
+                CustomeLoadingWindow customeLoadingWindow = new CustomeLoadingWindow();
+                customeLoadingWindow.Show();
+
                 var response = await apiService.SendPostRequest<AuthenticateResponse>($"{apiUrl}/api/v{apiVersion}/authenticate/generateToken", data);
 
-                if(!response.Data.Result)
+                customeLoadingWindow.Close();
+
+                this.IsEnabled = true;
+
+                if (!response.Data.Result)
                 {
+                    if (response.StatusCode == HttpStatusCode.InternalServerError)
+                    {
+                        CustomMessageBox interNalServerErrorMessage = new CustomMessageBox("خطا", "لطفا از اتصال خود با اینترنت اطمینان حاصل فرمایید", "باشه", "", false);
+                        interNalServerErrorMessage.ShowDialog();
+                        return;
+                    }
+
                     CustomMessageBox customMessageBox = new CustomMessageBox("خطای کاربر", "لطفا در ارسال اطلاعات دقت فرمایید", "باشه", "", false);
                     customMessageBox.ShowDialog();
+
+                    txtPassword.Password = "";
                 }
                 else
                 {
                     CustomMessageBox customMessageBox = new CustomMessageBox("خوش آمد گویی", $"خوش آمدید {response.Data.Username}", "باشه", "", false);
                     customMessageBox.ShowDialog();
+
+                    TokenManager.Token = response.Data.Token;
+
+                    MainWindow mainWindow = new MainWindow();
+                    mainWindow.Show();
+
+                    this.Visibility = Visibility.Collapsed;
                 }
             }
         }
+
     }
 }

@@ -1,10 +1,11 @@
-﻿<Window x:Class="ICaNet.WindowsApp.MainWindow"
+﻿<Window x:Class="ICaNet.WindowsApp.Views.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ICaNet.WindowsApp"
-        mc:Ignorable="d" Height="600" Width="1000" WindowStyle="None" Background="Transparent" WindowStartupLocation="CenterScreen" AllowsTransparency="True" ShowInTaskbar="False" Loaded="Window_Loaded" MouseLeftButtonDown="Window_MouseLeftButtonDown" ResizeMode="NoResize">
+        xmlns:local="clr-namespace:ICaNet.WindowsApp.Views"
+        mc:Ignorable="d"
+        Title="LoginWindow"  Height="600" Width="1000" WindowStyle="None" Background="Transparent" WindowStartupLocation="CenterScreen" AllowsTransparency="True" ShowInTaskbar="False" Loaded="Window_Loaded" MouseLeftButtonDown="Window_MouseLeftButtonDown" ResizeMode="NoResize">
 
     <Border Background="#FFFFFF" CornerRadius="20">
         <Grid>
@@ -40,11 +41,9 @@
 
                 <TextBlock Text="اولین حسابداری بر پایه هوش مصنوعی" HorizontalAlignment="Center" FontFamily="Vazir" FontSize="15" FontWeight="Light" Margin="0 5 0 0" Foreground="#4C585B"/>
 
-                <TextBox x:Name="txtUserName" Style="{StaticResource textBoxStyle}" Margin="0 20 0 30" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource TextBoxtTemplate}"/>
+                <TextBox x:Name="txtUserName" Style="{StaticResource textBoxStyle}" Margin="0 20 0 30" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource TextBoxtTemplate}" HorizontalContentAlignment="Left"/>
 
                 <PasswordBox x:Name="txtPassword" Style="{StaticResource passwordBoxStyle}" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource PasswordboxTempalte}"/>
-
-                <CheckBox x:Name="ckbRememberMe" Content="مرا به خاطر بسپار" HorizontalAlignment="Right" Margin="0 20 0 0" FontFamily="Vazir"/>
 
                 <Button x:Name="btnLogin" Content="ورود" Style="{StaticResource btnLogin}" Margin="0 20 0 0" Background="#2B2B2B" Foreground="#FFFFFF" Click="btnLogin_Click"/>
 
@@ -70,3 +69,4 @@
         </Grid>
     </Border>
 </Window>
+

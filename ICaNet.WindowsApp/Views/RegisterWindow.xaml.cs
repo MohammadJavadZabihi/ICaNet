@@ -1,5 +1,7 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace ICaNet.WindowsApp.Views
@@ -19,8 +21,8 @@ namespace ICaNet.WindowsApp.Views
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Visibility = Visibility.Visible;
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Visibility = Visibility.Visible;
 
             this.Close();
         }
