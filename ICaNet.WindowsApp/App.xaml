@@ -48,32 +48,9 @@
         </Style>
 
         <ControlTemplate x:Key="PasswordboxTempalte" TargetType="{x:Type PasswordBox}">
-            <Grid>
-                <Border Background="{TemplateBinding Background}"
-    x:Name="Bd"
-    BorderBrush="#1e1e1e"
-    BorderThickness="{TemplateBinding BorderThickness}"
-    CornerRadius="10">
-                    <ScrollViewer Name="PART_ContentHost"
-              SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
-                </Border>
-                <TextBlock x:Name="WatermarkText"
-       Text="{TemplateBinding Tag}"
-       Foreground="Gray"
-       Margin="0,0,10,0"
-       VerticalAlignment="Center"
-       HorizontalAlignment="Right"
-       IsHitTestVisible="False"
-       Visibility="Collapsed"/>
-            </Grid>
-            <ControlTemplate.Triggers>
-                <Trigger Property="Password" Value="">
-                    <Setter TargetName="WatermarkText" Property="Visibility" Value="Visible"/>
-                </Trigger>
-                <Trigger Property="IsKeyboardFocused" Value="True">
-                    <Setter TargetName="WatermarkText" Property="Visibility" Value="Collapsed"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
+            <Border Background="{TemplateBinding Background}" x:Name="Bd" BorderBrush="#404040" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
+                <ScrollViewer Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+            </Border>
         </ControlTemplate>
 
         <ControlTemplate x:Key="TextBoxtTemplate" TargetType="{x:Type TextBox}">

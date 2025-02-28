@@ -1,6 +1,7 @@
 ﻿using ICaNet.ApplicationCore.Constants;
 using ICaNet.ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -15,36 +16,44 @@ namespace ICaNet.Infrastructure.Identity
     public class IdentityTokenClaimService : ITokenClaimsService
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        public IdentityTokenClaimService(UserManager<ApplicationUser> userManager)
+        private readonly IConfiguration _configuration;
+        public IdentityTokenClaimService(UserManager<ApplicationUser> userManager,
+            IConfiguration configuration)
         {
             _userManager = userManager;
+            _configuration = configuration;
         }
         public async Task<string> GetTokenAsync(string userName)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(AuthenticationConstants.JWT_SCRET_KEY);
+            var key = Encoding.ASCII.GetBytes(_configuration["Authentication:SecretForKey"]);
 
             var user = await _userManager.FindByNameAsync(userName);
             if (user == null) throw new UserNotFoundExeption(userName);
 
-            var rols = await _userManager.GetRolesAsync(user);
+            var roles = await _userManager.GetRolesAsync(user);
 
-            var claims = new List<Claim> { new Claim(ClaimTypes.Name, userName),
-                                           new Claim("UserId", user.Id)};
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(ClaimTypes.Name, userName)
+            };
 
-            foreach (var role in rols)
+            foreach (var role in roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
-            var toeknDescriptor = new SecurityTokenDescriptor
+            var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddDays(1),
+                Issuer = _configuration["Authentication:Issuer"],
+                Audience = _configuration["Authentication:Audience"],
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
-            var token = tokenHandler.CreateJwtSecurityToken(toeknDescriptor);
+            var token = tokenHandler.CreateJwtSecurityToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
         }

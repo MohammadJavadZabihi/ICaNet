@@ -41,7 +41,7 @@
 
                 <TextBlock Text="اولین حسابداری بر پایه هوش مصنوعی" HorizontalAlignment="Center" FontFamily="Vazir" FontSize="15" FontWeight="Light" Margin="0 5 0 0" Foreground="#4C585B"/>
 
-                <TextBox x:Name="txtUserName" Style="{StaticResource textBoxStyle}" Margin="0 20 0 30" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource TextBoxtTemplate}" HorizontalContentAlignment="Left"/>
+                <TextBox x:Name="txtUserName" Style="{StaticResource textBoxStyle}" Margin="0 20 0 30" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource TextBoxtTemplate}" HorizontalContentAlignment="Left" Tag="نام کاربری"/>
 
                 <PasswordBox x:Name="txtPassword" Style="{StaticResource passwordBoxStyle}" VerticalContentAlignment="Center" FontSize="15" Template="{StaticResource PasswordboxTempalte}"/>
 

@@ -36,21 +36,24 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 
 #region JwtAuthentication
 
-var key = Encoding.ASCII.GetBytes(AuthenticationConstants.JWT_SCRET_KEY);
-builder.Services.AddAuthentication(config =>
+var key = Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecretForKey"]);
+
+builder.Services.AddAuthentication(options =>
 {
-    config.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(config =>
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(oprions =>
 {
-    config.RequireHttpsMetadata = false;
-    config.SaveToken = true;
-    config.TokenValidationParameters = new TokenValidationParameters
+    oprions.RequireHttpsMetadata = false;
+    oprions.SaveToken = true;
+    oprions.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(key),
-        ValidateIssuer = false,
-        ValidateAudience = false
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidIssuer = builder.Configuration["Authentication:Issuer"],
+        ValidAudience = builder.Configuration["Authentication:Audience"]
     };
 });
 
@@ -91,10 +94,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseRouting();
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
