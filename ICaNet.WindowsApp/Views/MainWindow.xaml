@@ -3,10 +3,104 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ICaNet.WindowsApp.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="600" Width="1080"
+        ResizeMode="CanResize"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent">
+
+    <Border CornerRadius="20" Background="#FFFFFF" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4.5*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="9*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Column="1" Grid.Row="1" Background="#2B2B2B" CornerRadius="20" Padding="10" Margin="8">
+
+                <Viewbox Stretch="Uniform" Grid.Column="1" Grid.Row="1">
+                    <StackPanel>
+                        <TextBlock Foreground="White" FontSize="20" FontFamily="Vazir" Text="LOGO" FontWeight="Bold" Margin="10" HorizontalAlignment="Center"/>
+
+                        <Button x:Name="btnProfile" Style="{StaticResource menuBtn}" Margin="0 0 0 13" Click="btnProfile_Click">
+                            <DockPanel>
+                                <TextBlock Text="داشبورد" Foreground="White" FontFamily="Vazir" FontSize="13" Margin="0 0 5 0" FontWeight="Light"/>
+                                <Image Source="/Images/ProfileIcon.png" Height="19"/>
+                            </DockPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuBtn}" Margin="0 0 0 13">
+                            <DockPanel>
+                                <TextBlock Text="محصولات" Foreground="White" FontFamily="Vazir" FontSize="13" Margin="0 0 5 0" FontWeight="Light"/>
+                                <Image Source="/Images/ProductIcon.png" Height="21"/>
+                            </DockPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuBtn}" Margin="0 0 0 12">
+                            <DockPanel>
+                                <TextBlock Text="داشبورد" Foreground="White" FontFamily="Vazir" FontSize="13" Margin="0 0 5 0" FontWeight="Light"/>
+                                <Image Source="/Images/ProfileIcon.png" Height="19"/>
+                            </DockPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuBtn}" Margin="0 0 0 13">
+                            <DockPanel>
+                                <TextBlock Text="داشبورد" Foreground="White" FontFamily="Vazir" FontSize="13" Margin="0 0 5 0" FontWeight="Light"/>
+                                <Image Source="/Images/ProfileIcon.png" Height="19"/>
+                            </DockPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuBtn}" Margin="0 0 0 13">
+                            <DockPanel>
+                                <TextBlock Text="داشبورد" Foreground="White" FontFamily="Vazir" FontSize="13" Margin="0 0 5 0" FontWeight="Light"/>
+                                <Image Source="/Images/ProfileIcon.png" Height="19"/>
+                            </DockPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuBtn}" Margin="0 0 0 13">
+                            <DockPanel>
+                                <TextBlock Text="داشبورد" Foreground="White" FontFamily="Vazir" FontSize="13" Margin="0 0 5 0" FontWeight="Light"/>
+                                <Image Source="/Images/ProfileIcon.png" Height="19"/>
+                            </DockPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuBtn}" Margin="0 0 0 13">
+                            <DockPanel>
+                                <TextBlock Text="داشبورد" Foreground="White" FontFamily="Vazir" FontSize="13" Margin="0 0 5 0" FontWeight="Light"/>
+                                <Image Source="/Images/ProfileIcon.png" Height="19"/>
+                            </DockPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuBtn}" Margin="0 0 0 13">
+                            <DockPanel>
+                                <TextBlock Text="داشبورد" Foreground="White" FontFamily="Vazir" FontSize="13" Margin="0 0 5 0" FontWeight="Light"/>
+                                <Image Source="/Images/ProfileIcon.png" Height="19"/>
+                            </DockPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource menuBtn}" Margin="0 0 0 13">
+                            <DockPanel>
+                                <TextBlock Text="داشبورد" Foreground="White" FontFamily="Vazir" FontSize="13" Margin="0 0 5 0" FontWeight="Light"/>
+                                <Image Source="/Images/ProfileIcon.png" Height="19"/>
+                            </DockPanel>
+                        </Button>
+                    </StackPanel>
+                </Viewbox>
+            </Border>
+
+            <Frame Grid.Row="1"
+                     Name="fContainer"
+                     Margin="8"
+                     NavigationUIVisibility="Hidden">
+
+            </Frame>
+
+        </Grid>
+    </Border>
 </Window>

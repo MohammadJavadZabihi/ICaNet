@@ -1,0 +1,104 @@
+﻿<Page x:Class="ICaNet.WindowsApp.Views.DashboardViews.Dashboard"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ICaNet.WindowsApp.Views.DashboardViews"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Dashboard">
+
+    <Border Background="#FFFFFF" CornerRadius="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Padding="10" Margin="10" CornerRadius="10" Background="#2B2B2B">
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="6*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <TextBlock Text="درآمد سال ۱۴۰۴" Foreground="White" FontFamily="Vazir" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center" Margin="0 0 0 5"/>
+                        
+                        <Border Background="Transparent" Grid.Row="1">
+                            <lvc:CartesianChart LegendLocation="Right" x:Name="positiveProfit" Background="Transparent" Margin="0,0,0,10">
+
+
+                            </lvc:CartesianChart>
+                        </Border>
+                    </Grid>
+
+
+                </Border>
+
+                <Border Grid.Column="1" Padding="10" Margin="10" CornerRadius="10" Background="#2B2B2B">
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="6*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="مخارج سال ۱۴۰۴" Foreground="White" FontFamily="Vazir" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center" Margin="0 0 0 5"/>
+
+                        <Border Background="Transparent" Grid.Row="1">
+                            <lvc:CartesianChart LegendLocation="Right" x:Name="negativeProfit" Background="Transparent" Margin="0,0,0,10">
+
+
+                            </lvc:CartesianChart>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="2" Padding="10" Margin="10" CornerRadius="10" Background="#2B2B2B">
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="6*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="کلیت سال ۱۴۰۴" Foreground="White" FontFamily="Vazir" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center" Margin="0 0 0 5"/>
+
+                        <Border Background="Transparent" Grid.Row="1">
+                            <lvc:CartesianChart LegendLocation="Right" x:Name="totalProfit" Background="Transparent" Margin="0,0,0,10">
+
+
+                            </lvc:CartesianChart>
+                        </Border>
+                    </Grid>
+                </Border>
+
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="1" Margin="10" CornerRadius="10" Background="#2B2B2B">
+
+                </Border>
+
+                <Border Margin="10" CornerRadius="10" Background="#2B2B2B">
+
+                </Border>
+
+            </Grid>
+        </Grid>
+    </Border>
+</Page>
