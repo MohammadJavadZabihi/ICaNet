@@ -13,7 +13,7 @@ namespace ICaNet.Infrastructure.Services
         {
             _coreDbContext = coreDbContext;
         }
-        public async Task<List<GetProductResponse>> GetAllProduct(string userId, int pageNumber = 1, int pageSize = 10, string filter = "")
+        public async Task<List<GetProductResponse>> GetAllProduct(string userId, int pageSize = 10, string filter = "", int itemSkip = 0)
         {
             IQueryable<Product> productResponses = _coreDbContext.Products
                 .Include(p => p.UnitOfMeasurement)
@@ -24,10 +24,10 @@ namespace ICaNet.Infrastructure.Services
                 productResponses = productResponses.Where(p=> p.Name.Contains(filter) || p.Code.Contains(filter));
             }
 
-            var skip = (pageNumber - 1) * pageSize;
+            
 
             var products = await productResponses
-                .Skip(skip)
+                .Skip(itemSkip)
                 .Take(pageSize)
                 .Select(p => new GetProductResponse
                 {

@@ -6,28 +6,24 @@
       xmlns:local="clr-namespace:ICaNet.WindowsApp.Views.ProductViews"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800" Loaded="Page_Loaded">
-
     <Border Background="#FFFFFF" CornerRadius="20">
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="5*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <TextBox x:Name="txtSearcher" Style="{StaticResource textBoxStyle}" Template="{StaticResource TextBoxtTemplate}" Tag="جست و جو کنید" FlowDirection="LeftToRight" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" TextChanged="txtSearcher_TextChanged"/>
 
-            <!--#region datagrid -->
-
-            <DataGrid x:Name="productDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" Margin="20" Background="Transparent" Foreground="#2B2B2B">
+            <DataGrid x:Name="productDataGrid" Grid.Row="1" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Margin="20" Background="Transparent" Foreground="#2B2B2B">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding ProductId}" Header="#" IsReadOnly="True" CanUserResize="False" Width="auto"/>
-
                     <DataGridTextColumn Binding="{Binding Name}" Header="نام" IsReadOnly="True"  Width="*"/>
                     <DataGridTextColumn Binding="{Binding Statuce}" Header="وضعیت" IsReadOnly="True"  Width="*"/>
                     <DataGridTextColumn Binding="{Binding Count}" Header="تعداد" IsReadOnly="True"  Width="*"/>
                     <DataGridTextColumn Binding="{Binding UnitOfMeasurement}" Header="نوع" IsReadOnly="True"  Width="*"/>
                     <DataGridTextColumn Binding="{Binding Code}" Header="کدشناسایی" IsReadOnly="True"  Width="*"/>
-
                     <DataGridTemplateColumn Header="عملیات" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -46,12 +42,10 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-
                 </DataGrid.Columns>
             </DataGrid>
-            <!--#endregion-->
 
+            <Button x:Name="btnLoadMore" Grid.Row="2" FontFamily="Vazir" Content="بارگیری بیشتر" Visibility="Collapsed" Click="btnLoadMore_Click" Margin="10" HorizontalAlignment="Center" />
         </Grid>
     </Border>
-    
 </Page>

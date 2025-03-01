@@ -10,6 +10,6 @@ namespace ICaNet.ApplicationCore.Interfaces
 {
     public interface IProductService
     {
-        Task<List<GetProductResponse>> GetAllProduct(string userId, int pageNumber = 1, int pageSize = 10, string filter = "");
+        Task<List<GetProductResponse>> GetAllProduct(string userId,int pageSize = 10, string filter = "", int itemSkip = 0);
     }
 }

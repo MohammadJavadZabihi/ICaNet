@@ -9,7 +9,7 @@ namespace ICaNer.Shared.DTOs.Product
 {
     public class ProductRequest : BaseRequest
     {
-        public int PageNumber { get; set; }
+        public int ItemSkip { get; set; }
         public string Filter { get; set; } = string.Empty;
         public int PageSize { get; set; }
     }

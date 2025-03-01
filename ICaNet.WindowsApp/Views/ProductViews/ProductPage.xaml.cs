@@ -1,40 +1,95 @@
-﻿using ApiRequest.Net.CallApi;
-using ICaNer.Shared.DTOs.Authenticate;
-using ICaNer.Shared.DTOs.Product;
-using ICaNet.ApplicationCore.Entities.Products;
-using ICaNet.WindowsApp.Views.CustomeLoading;
-using ICaNet.WindowsApp.Views.CustomeMessageBox;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using ICaNer.Shared.DTOs.Product;
+using ICaNet.WindowsApp.Views.CustomeLoading;
+using ICaNet.WindowsApp.WpfService;
 
 namespace ICaNet.WindowsApp.Views.ProductViews
 {
-    /// <summary>
-    /// Interaction logic for ProductPage.xaml
-    /// </summary>
     public partial class ProductPage : Page
     {
-        private CallApi _callApi;
-        private string? apiUrl = ConfigurationManager.AppSettings["ApiURL"];
-        private string? apiVersion = ConfigurationManager.AppSettings["ApiVersion"];
+        private LoadFromApiService _loadFromApiService;
+        private int pageSize = 10;
+        private int itemSkip = 0;
+
         public ProductPage()
         {
             InitializeComponent();
-            _callApi = new CallApi();
+            _loadFromApiService = new LoadFromApiService();
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (SaveProductClientDTO.Producs != null)
+            {
+                productDataGrid.ItemsSource = SaveProductClientDTO.Producs;
+                var scrollViewer = GetScrollViewer(productDataGrid);
+                if (scrollViewer != null)
+                {
+                    scrollViewer.ScrollChanged += ScrollViewer_ScrollChanged;
+                }
+            }
+            else
+            {
+                CustomeLoadingWindow customeLoadingWindow = new CustomeLoadingWindow();
+                customeLoadingWindow.Show();
+
+                this.IsEnabled = false;
+
+                await _loadFromApiService.LoadProducts(itemSkip, pageSize, txtSearcher.Text, append: false, productDataGrid);
+
+                customeLoadingWindow.Close();
+
+                this.IsEnabled = true;
+                var scrollViewer = GetScrollViewer(productDataGrid);
+                if (scrollViewer != null)
+                {
+                    scrollViewer.ScrollChanged += ScrollViewer_ScrollChanged;
+                }
+            }
+        }
+
+        private ScrollViewer GetScrollViewer(DependencyObject dep)
+        {
+            if (dep is ScrollViewer) return dep as ScrollViewer;
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(dep); i++)
+            {
+                var child = VisualTreeHelper.GetChild(dep, i);
+                var result = GetScrollViewer(child);
+                if (result != null)
+                    return result;
+            }
+            return null;
+        }
+
+        private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            var scrollViewer = sender as ScrollViewer;
+            if (scrollViewer != null)
+            {
+                if (scrollViewer.VerticalOffset >= scrollViewer.ScrollableHeight)
+                {
+                    btnLoadMore.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    btnLoadMore.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private async void btnLoadMore_Click(object sender, RoutedEventArgs e)
+        {
+            itemSkip += 10;
+            await _loadFromApiService.LoadProducts(itemSkip, pageSize, txtSearcher.Text, append: true, productDataGrid);
+            btnLoadMore.Visibility = Visibility.Collapsed;
+        }
+
+        private async void txtSearcher_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            itemSkip = 0;
+            await _loadFromApiService.LoadProducts(itemSkip, pageSize, txtSearcher.Text, append: false, productDataGrid);
         }
 
         private void btnEdite_Click(object sender, RoutedEventArgs e)
@@ -45,71 +100,6 @@ namespace ICaNet.WindowsApp.Views.ProductViews
         private void btnDelet_Click(object sender, RoutedEventArgs e)
         {
 
-        }
-
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            CustomeLoadingWindow customeLoadingWindow = new CustomeLoadingWindow();
-            customeLoadingWindow.Show();
-            this.IsEnabled = false;
-
-
-            var data = new
-            {
-                PageNumber = 1,
-                Filter = txtSearcher.Text,
-                PageSize = 10
-            };
-
-            var response = await _callApi
-                .SendPostRequest<List<GetProductResponse>>($"{apiUrl}/api/v{apiVersion}/Product/GetAll", data, TokenManager.Token);
-
-            customeLoadingWindow.Close();
-
-            this.IsEnabled = true;
-
-            if(response.IsSuccess)
-            {
-                var data2 = response.Data;
-
-                productDataGrid.ItemsSource = data2;
-            }
-            else
-            {
-                CustomMessageBox customMessageBox = new CustomMessageBox("خطا", $"{response.Message}", "باشه", "", false);
-                customMessageBox.ShowDialog();
-            }
-        }
-
-        private async void txtSearcher_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            CustomeLoadingWindow customeLoadingWindow = new CustomeLoadingWindow();
-            customeLoadingWindow.Show();
-
-
-            var data = new
-            {
-                PageNumber = 1,
-                Filter = txtSearcher.Text,
-                PageSize = 10
-            };
-
-            var response = await _callApi
-                .SendPostRequest<List<GetProductResponse>>($"{apiUrl}/api/v{apiVersion}/Product/GetAll", data, TokenManager.Token);
-
-            customeLoadingWindow.Close();
-
-            if (response.IsSuccess)
-            {
-                var data2 = response.Data;
-
-                productDataGrid.ItemsSource = data2;
-            }
-            else
-            {
-                CustomMessageBox customMessageBox = new CustomMessageBox("خطا", $"{response.Message}", "باشه", "", false);
-                customMessageBox.ShowDialog();
-            }
         }
     }
 }

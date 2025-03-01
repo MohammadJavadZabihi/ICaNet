@@ -47,7 +47,7 @@ namespace ICaNet.API.EndPoints.ProductEndpoints
                 return Unauthorized("کاربری یافت نشد");
             }
 
-            var response = await _productService.GetAllProduct(userId, request.PageNumber, request.PageSize, request.Filter);
+            var response = await _productService.GetAllProduct(userId, request.PageSize, request.Filter, request.ItemSkip);
 
             return Ok(response);
         }
