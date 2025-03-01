@@ -11,6 +11,7 @@ namespace ICaNet.API.EndPoints.UserEndpoints;
 
 [Route("api/v{version:apiversion}/user")]
 [ApiVersion("1.0")]
+[Authorize]
 public class UserProfileEndpoint : EndpointBaseAsync.WithoutRequest.WithActionResult
 {
     private readonly UserManager<ApplicationUser> _userManager;
@@ -19,8 +20,7 @@ public class UserProfileEndpoint : EndpointBaseAsync.WithoutRequest.WithActionRe
         _userManager = userManager;
     }
 
-    [HttpPost("GetDashboard")]
-    [Authorize]
+    [HttpGet("GetDashboard")]
     public async override Task<ActionResult> HandleAsync(CancellationToken cancellationToken = default)
     {
         var response = new UserGetDashboardResponse();

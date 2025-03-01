@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ICaNer.Shared\ICaNer.Shared.csproj" />
+    <ProjectReference Include="..\ICaNet.ApplicationCore\ICaNet.ApplicationCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>

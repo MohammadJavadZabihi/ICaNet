@@ -35,9 +35,6 @@ namespace ICaNet.ApplicationCore.Entities.Products
         public string Code { get; set; }
 
         [Required]
-        public int SuppLierdId { get; set; }
-
-        [Required]
         [MaxLength(100)]
         public string Statuce { get; set; }
 

@@ -45,7 +45,7 @@ namespace ICaNet.WindowsApp.Views.DashboardViews
             {
                 new ColumnSeries
                 {
-                    Values = new ChartValues<double> { 1000000, 1500000, 1200000, 2000000, 2500000, 2300000, 1900000, 2100000, 2400000, 2200000, 2700000, 2900000 },
+                    Values = new ChartValues<double> { -1000000, 1500000, 1200000, 2000000, 2500000, 2300000, 1900000, 2100000, 2400000, 2200000, 2700000, 2900000 },
                     Title = null,
                     Fill = new SolidColorBrush(Color.FromRgb(70, 130, 180))
                 }

@@ -38,7 +38,7 @@ namespace ICaNet.Infrastructure.Data
             modelBuilder.Entity<Product>()
                 .HasOne(p => p.SuppLier)
                 .WithMany(p => p.Products)
-                .HasForeignKey(p => p.SuppLierdId);
+                .HasForeignKey(p => p.SupplierId);
 
             modelBuilder.Entity<Product>()
                 .HasOne(p => p.UnitOfMeasurement)

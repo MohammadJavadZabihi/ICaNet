@@ -33,8 +33,4 @@
     <ProjectReference Include="..\ICaNet.Infrastructure\ICaNet.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="EndPoints\NewFolder\" />
-  </ItemGroup>
-
 </Project>
