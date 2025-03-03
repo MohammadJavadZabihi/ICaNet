@@ -18,17 +18,24 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock x:Name="lblTitle" Text="تایتل مورد نظر" FontFamily="Vazir" FontSize="12"  HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Light"/>
+            <TextBlock x:Name="lblTitle" Text="تایتل مورد نظر" FontFamily="Vazir" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Light"/>
 
-            <TextBlock Grid.Row="1" x:Name="lblTextMessage" Text="متن مورد نظر" FontFamily="Vazir" FontSize="17" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <!-- قرار دادن TextBlock داخل ScrollViewer به همراه فعال‌سازی TextWrapping -->
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <TextBlock x:Name="lblTextMessage" 
+                           Text="متن مورد نظر"
+                           TextWrapping="Wrap"
+                           FontFamily="Vazir" 
+                           FontSize="17" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center"  FlowDirection="RightToLeft"/>
+            </ScrollViewer>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Button x:Name="btnOk" Foreground="White" Style="{StaticResource btn}" Margin="0 0 10 0" Background="#3A7D44" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnOk_Click"/>
-
                 <Button x:Name="btnNo" Foreground="White" Style="{StaticResource btn}" Background="#F93827" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnNo_Click"/>
             </StackPanel>
-            
-        </Grid>
 
+        </Grid>
     </Border>
 </Window>

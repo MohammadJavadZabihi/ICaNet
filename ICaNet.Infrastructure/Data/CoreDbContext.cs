@@ -1,4 +1,5 @@
-﻿using ICaNet.ApplicationCore.Entities.Products;
+﻿using ICaNet.ApplicationCore.Entities;
+using ICaNet.ApplicationCore.Entities.Products;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,9 @@ namespace ICaNet.Infrastructure.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<UnitOfMeasurement> UnitOfMeasurement { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

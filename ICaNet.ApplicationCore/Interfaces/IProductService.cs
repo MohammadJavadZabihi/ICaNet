@@ -11,5 +11,6 @@ namespace ICaNet.ApplicationCore.Interfaces
     public interface IProductService
     {
         Task<List<GetProductResponse>> GetAllProduct(string userId,int pageSize = 10, string filter = "", int itemSkip = 0);
+        Task<bool> AddProductAsync(AddProductRequest addProduct, string userId);
     }
 }

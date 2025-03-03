@@ -14,7 +14,11 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <TextBox x:Name="txtSearcher" Style="{StaticResource textBoxStyle}" Template="{StaticResource TextBoxtTemplate}" Tag="جست و جو کنید" FlowDirection="LeftToRight" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" TextChanged="txtSearcher_TextChanged"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBox x:Name="txtSearcher" Style="{StaticResource textBoxStyle}" Template="{StaticResource TextBoxtTemplate}" Tag="جست و جو کنید" FlowDirection="LeftToRight" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" TextChanged="txtSearcher_TextChanged"/>
+
+                <Button x:Name="btnAddProduct" Style="{StaticResource btnAdd}" Margin="60 0 0 0" Content="کالا جدید" Background="#00c873" Click="btnAddProduct_Click"/>
+            </StackPanel>
 
             <DataGrid x:Name="productDataGrid" Grid.Row="1" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Margin="20" Background="Transparent" Foreground="#2B2B2B">
                 <DataGrid.Columns>
@@ -45,7 +49,7 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <Button x:Name="btnLoadMore" Grid.Row="2" FontFamily="Vazir" Content="بارگیری بیشتر" Visibility="Collapsed" Click="btnLoadMore_Click" Margin="10" HorizontalAlignment="Center" />
+            <Button Style="{StaticResource btn}" FontSize="12.5" x:Name="btnLoadMore" Grid.Row="2"  Content="بارگیری بیشتر" Visibility="Hidden" Click="btnLoadMore_Click" Margin="0,10,0,10" HorizontalAlignment="Center" Foreground="#0078ff" Background="Transparent" Width="70" Height="30"/>
         </Grid>
     </Border>
 </Page>

@@ -101,5 +101,16 @@ namespace ICaNet.WindowsApp.Views.ProductViews
         {
 
         }
+
+        private async void btnAddProduct_Click(object sender, RoutedEventArgs e)
+        {
+            AddNewProductWindw addNewProductWindw = new AddNewProductWindw();
+            addNewProductWindw.ShowDialog();
+
+            if(addNewProductWindw.DialogResult == true)
+            {
+                await _loadFromApiService.LoadProducts(itemSkip, pageSize, txtSearcher.Text, append: false, productDataGrid);
+            }
+        }
     }
 }
