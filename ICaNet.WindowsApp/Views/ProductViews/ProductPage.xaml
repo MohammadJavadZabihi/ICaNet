@@ -34,12 +34,12 @@
                                 <StackPanel Orientation="Horizontal">
                                     <Button x:Name="btnDelet" Background="#B13939" Style="{StaticResource btnDeletandEditeSHoProduct}" Margin="0 0 10 0" Click="btnDelet_Click">
                                         <Button.Content>
-                                            <Image Source="/ImageResurce/deletIcon.png"/>
+                                            <Image Source="/Images/DeletIcno.png"/>
                                         </Button.Content>
                                     </Button>
                                     <Button x:Name="btnEdite" Background="#176886" Style="{StaticResource btnDeletandEditeSHoProduct}" Click="btnEdite_Click">
                                         <Button.Content>
-                                            <Image Source="/ImageResurce/EditeIcon.png"/>
+                                            <Image Source="/Images/EditeIcon.png"/>
                                         </Button.Content>
                                     </Button>
                                 </StackPanel>

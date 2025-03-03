@@ -3,6 +3,7 @@ using ICaNet.ApplicationCore.Entities;
 using ICaNet.ApplicationCore.Entities.Products;
 using ICaNet.ApplicationCore.Interfaces;
 using ICaNet.Infrastructure.Data;
+using ICaNet.Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace ICaNet.Infrastructure.Services
@@ -17,6 +18,13 @@ namespace ICaNet.Infrastructure.Services
 
         public async Task<bool> AddProductAsync(AddProductRequest addProduct, string userId)
         {
+            var isExistProduct = await _coreDbContext.Products.AnyAsync(p => p.Name == addProduct.Name && p.Code == addProduct.Code);
+
+            if (isExistProduct)
+            {
+                return false;
+            }
+
             using var transaction = await _coreDbContext.Database.BeginTransactionAsync();
 
             try
@@ -89,6 +97,30 @@ namespace ICaNet.Infrastructure.Services
             }
         }
 
+        public async Task<bool> DeleteProductAsync(DeletProductRequest deletProductRequest, string userId)
+        {
+            try
+            {
+                var product = await _coreDbContext.Products
+                    .FirstOrDefaultAsync(p => p.Name == deletProductRequest.ProduName && 
+                    p.Code == deletProductRequest.ProductCode &&
+                    p.UserId == userId);
+
+                if (product == null)
+                {
+                    return false;
+                }
+
+                _coreDbContext.Products.Remove(product);
+                await _coreDbContext.SaveChangesAsync();
+
+                return true;    
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
         public async Task<List<GetProductResponse>> GetAllProduct(string userId, int pageSize = 10, string filter = "", int itemSkip = 0)
         {

@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\DeletIcno.png" />
+    <None Remove="Images\EditeIcon.png" />
     <None Remove="Images\Loading.gif" />
     <None Remove="Images\LoginAndRegisterPic.jpg" />
     <None Remove="Images\ProductIcon.png" />
@@ -29,6 +31,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\DeletIcno.png" />
+    <Resource Include="Images\EditeIcon.png" />
     <Resource Include="Images\LoginAndRegisterPic.jpg" />
     <Resource Include="Images\ProductIcon.png" />
     <Resource Include="Images\ProfileIcon.png" />

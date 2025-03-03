@@ -1,6 +1,7 @@
 ﻿using ApiRequest.Net.CallApi;
 using ICaNer.Shared.DTOs.Authenticate;
 using ICaNer.Shared.DTOs.Product;
+using ICaNet.WindowsApp.Views.CustomeLoading;
 using ICaNet.WindowsApp.Views.CustomeMessageBox;
 using System.Configuration;
 using System.Windows;
@@ -39,6 +40,9 @@ namespace ICaNet.WindowsApp.Views.ProductViews
 
         private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            CustomeLoadingWindow customeLoadingWindow = new CustomeLoadingWindow();
+            customeLoadingWindow.Show();
+
             this.IsEnabled = false;
 
             CallApi callApi = new CallApi();
@@ -54,8 +58,9 @@ namespace ICaNet.WindowsApp.Views.ProductViews
                 Statuce = cmbStatus.Text,
             };
 
-
             var response = await callApi.SendPostRequest<AddProductResponse>($"{_apiUrl}/api/v{_apiVersion}/Product/Add", data, TokenManager.Token);
+
+            customeLoadingWindow.Close();
 
             this.IsEnabled = true;
 
@@ -69,7 +74,7 @@ namespace ICaNet.WindowsApp.Views.ProductViews
             }
             else
             {
-                CustomMessageBox customMessageBox = new CustomMessageBox("پیام", $"{response.Data.Messaeg}", "باشه", "", false);
+                CustomMessageBox customMessageBox = new CustomMessageBox("پیام", $"{response.Message}", "باشه", "", false);
                 customMessageBox.ShowDialog();
 
                 this.DialogResult = false;

@@ -1,8 +1,13 @@
-﻿using System.Windows;
+﻿using System.Configuration;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using ApiRequest.Net.CallApi;
+using ICaNer.Shared.DTOs.Authenticate;
 using ICaNer.Shared.DTOs.Product;
+using ICaNet.ApplicationCore.Entities.Products;
 using ICaNet.WindowsApp.Views.CustomeLoading;
+using ICaNet.WindowsApp.Views.CustomeMessageBox;
 using ICaNet.WindowsApp.WpfService;
 
 namespace ICaNet.WindowsApp.Views.ProductViews
@@ -12,6 +17,8 @@ namespace ICaNet.WindowsApp.Views.ProductViews
         private LoadFromApiService _loadFromApiService;
         private int pageSize = 10;
         private int itemSkip = 0;
+        private string _apiUrl = ConfigurationManager.AppSettings["ApiURL"];
+        private string _apVersion = ConfigurationManager.AppSettings["ApiVersion"];
 
         public ProductPage()
         {
@@ -97,9 +104,57 @@ namespace ICaNet.WindowsApp.Views.ProductViews
 
         }
 
-        private void btnDelet_Click(object sender, RoutedEventArgs e)
+        private async void btnDelet_Click(object sender, RoutedEventArgs e)
         {
+            CustomMessageBox customMessageBox = new CustomMessageBox("پیام", "آیا از حذف کالا مورد نظر مطمئن هستید؟", "باشه", "خیر", true);
+            customMessageBox.ShowDialog();
 
+            if (customMessageBox.DialogResult == true)
+            {
+                this.IsEnabled = false;
+
+                CallApi callApi = new CallApi();
+
+                try
+                {
+                    if (productDataGrid.SelectedItem is GetProductResponse product)
+                    {
+                        var data = new
+                        {
+                            ProduName = product.Name,
+                            ProductCode = product.Code,
+                        };
+
+                        CustomeLoadingWindow customeLoadingWindow = new CustomeLoadingWindow();
+                        customeLoadingWindow.Show();
+
+                        var response = await callApi
+                            .SendDeletRequest<DeleteProductRespone>($"{_apiUrl}/api/v{_apVersion}/Product/Delete", data, TokenManager.Token);
+
+                        customeLoadingWindow.Close();
+
+                        this.IsEnabled = true;
+
+                        if (response.IsSuccess && response.Data.Result)
+                        {
+                            CustomMessageBox successMessageBox = new CustomMessageBox("پیام", $"{response.Data.Messgae}", "باشه", "", false);
+                            successMessageBox.ShowDialog();
+
+                            await _loadFromApiService.LoadProducts(itemSkip, pageSize, txtSearcher.Text, append: false, productDataGrid);
+                        }
+                        else
+                        {
+                            CustomMessageBox errorMessageBox = new CustomMessageBox("خطا", $"{response.Data.Messgae}", "باشه", "", false);
+                            errorMessageBox.ShowDialog();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    CustomMessageBox exeptionMessageBox = new CustomMessageBox("پیام", $"{ex.Message}", "باشه", "", false);
+                    exeptionMessageBox.ShowDialog();
+                }
+            }
         }
 
         private async void btnAddProduct_Click(object sender, RoutedEventArgs e)
