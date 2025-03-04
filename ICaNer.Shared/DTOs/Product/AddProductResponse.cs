@@ -10,6 +10,6 @@ namespace ICaNer.Shared.DTOs.Product
     public class AddProductResponse:BaseResponse
     {
         public bool Result { get; set; } = false;
-        public string Messaeg { get; set; }
+        public string Message { get; set; }
     }
 }

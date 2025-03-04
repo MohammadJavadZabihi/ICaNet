@@ -136,17 +136,6 @@ namespace ICaNet.Infrastructure.Services
                 return response;
             }
 
-            var isExistProduct = await _coreDbContext.Products.AnyAsync(p => 
-            p.Name == editeProduct.Name && p.Code == editeProduct.Code && p.UserId == userId);
-
-            if (isExistProduct)
-            {
-                response.Result = false;
-                response.Message = "این کالا با این مشخصات موجود است";
-
-                return response;
-            }
-
             product.Code = editeProduct.Code;
             product.Count = editeProduct.Count;
             product.Name = editeProduct.Name;
@@ -168,6 +157,7 @@ namespace ICaNet.Infrastructure.Services
         {
             IQueryable<Product> productResponses = _coreDbContext.Products
                 .Include(p => p.UnitOfMeasurement)
+                .Include(p => p.SuppLier)
                 .Where(p => p.UserId == userId);
 
             if (!string.IsNullOrEmpty(filter))
@@ -180,11 +170,14 @@ namespace ICaNet.Infrastructure.Services
                 .Take(pageSize)
                 .Select(p => new GetProductResponse
                 {
+                    Supplier = p.SuppLier.Name,
+                    Price = p.Price,
                     Name = p.Name,
                     Code = p.Code,
                     Count = p.Count,
                     Statuce = p.Statuce,
-                    UnitOfMeasurement = p.UnitOfMeasurement.Name
+                    UnitOfMeasurement = p.UnitOfMeasurement.Name,
+                    Id = p.Id,
 
                 })
                 .ToListAsync();

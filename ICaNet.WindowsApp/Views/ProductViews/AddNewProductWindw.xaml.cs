@@ -1,4 +1,5 @@
 ﻿using ApiRequest.Net.CallApi;
+using ApiRequest.Net.Servies.Models;
 using ICaNer.Shared.DTOs.Authenticate;
 using ICaNer.Shared.DTOs.Product;
 using ICaNet.WindowsApp.Views.CustomeLoading;
@@ -13,9 +14,36 @@ namespace ICaNet.WindowsApp.Views.ProductViews
     {
         private string? _apiUrl = ConfigurationManager.AppSettings["ApiURL"];
         private string? _apiVersion = ConfigurationManager.AppSettings["ApiVersion"];
-        public AddNewProductWindw()
+
+        private bool _isEdite;
+        private string _productname;
+        private string _productCode;
+        private string _statuce;
+        private string _unitOfMeasurement;
+        private string _suppLier;
+        private double _price;
+        private double _count;
+        private int _id;
+        public AddNewProductWindw(bool isEdite = false, 
+            string productname = "", 
+            string productCode = "", 
+            string statuce ="",
+            string unitOfMeasurement = "",
+            double price = 0,
+            double count = 0,
+            string suppLier = "",
+            int id = 0)
         {
             InitializeComponent();
+            _productname = productname;
+            _productCode = productCode;
+            _statuce = statuce;
+            _unitOfMeasurement = unitOfMeasurement;
+            _price = price;
+            _count = count;
+            _isEdite = isEdite;
+            _suppLier = suppLier;
+            _id = id;
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -40,46 +68,150 @@ namespace ICaNet.WindowsApp.Views.ProductViews
 
         private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if (ValidateInputs() == false)
+                {
+                    ShowMessage("خطا", "لطفا اطلاعات مورد نیاز را پر نمایید");
+                    return;
+                }
+
+                await SaveProduct();
+            }
+            catch (Exception)
+            {
+                ShowMessage("خطا", "خطای ناشناخته");
+            }
+        }
+
+        private bool ValidateInputs()
+        {
+            return !string.IsNullOrEmpty(txtCode.Text) &&
+                   !string.IsNullOrEmpty(txtName.Text) &&
+                   !string.IsNullOrEmpty(txtPrice.Text) &&
+                   !string.IsNullOrEmpty(cmbStatus.Text) &&
+                   !string.IsNullOrEmpty(cmbSupplier.Text) &&
+                   !string.IsNullOrEmpty(cmbUnitOfMeasurement.Text);
+        }
+
+        private void ShowMessage(string title, string message)
+        {
+            CustomMessageBox customMessageBox = new CustomMessageBox(title, message, "باشه", "", false);
+            customMessageBox.ShowDialog();
+        }
+
+        private async Task SaveProduct()
+        {
             CustomeLoadingWindow customeLoadingWindow = new CustomeLoadingWindow();
             customeLoadingWindow.Show();
-
             this.IsEnabled = false;
 
-            CallApi callApi = new CallApi();
-
-            var data = new
+            try
             {
-                Name = txtName.Text,
-                Price = Convert.ToDouble(txtPrice.Text),
-                Count = Convert.ToInt32(txtCount.Text),
-                UnitOfMeasurementName = cmbUnitOfMeasurement.Text,
-                Code = txtCode.Text,
-                SupplierName = cmbSupplier.Text,
-                Statuce = cmbStatus.Text,
-            };
-
-            var response = await callApi.SendPostRequest<AddProductResponse>($"{_apiUrl}/api/v{_apiVersion}/Product/Add", data, TokenManager.Token);
-
-            customeLoadingWindow.Close();
-
-            this.IsEnabled = true;
-
-            if (response.IsSuccess && response.Data.Result)
+                var productData = CreateProductData();
+                var response = await SendApiRequest(productData);
+                ProcessResponse(response);
+            }
+            finally
             {
-                CustomMessageBox customMessageBox = new CustomMessageBox("پیام", $"{response.Data.Messaeg}", "باشه", "", false);
-                customMessageBox.ShowDialog();
+                customeLoadingWindow.Close();
+                this.IsEnabled = true;
+            }
+        }
 
-                this.DialogResult = true;
-                this.Close();
+        private object CreateProductData()
+        {
+            if (_isEdite)
+            {
+                return new
+                {
+                    Id = _id,
+                    Name = txtName.Text,
+                    Price = Convert.ToDouble(txtPrice.Text),
+                    Count = Convert.ToInt32(txtCount.Text),
+                    UnitOfMeasurementName = cmbUnitOfMeasurement.Text,
+                    Code = txtCode.Text,
+                    SupplierName = cmbSupplier.Text,
+                    Statuce = cmbStatus.Text,
+                };
             }
             else
             {
-                CustomMessageBox customMessageBox = new CustomMessageBox("پیام", $"{response.Message}", "باشه", "", false);
-                customMessageBox.ShowDialog();
+                return new
+                {
+                    Name = txtName.Text,
+                    Price = Convert.ToDouble(txtPrice.Text),
+                    Count = Convert.ToInt32(txtCount.Text),
+                    UnitOfMeasurementName = cmbUnitOfMeasurement.Text,
+                    Code = txtCode.Text,
+                    SupplierName = cmbSupplier.Text,
+                    Statuce = cmbStatus.Text,
+                };
+            }
+        }
 
+        private async Task<dynamic> SendApiRequest(object data)
+        {
+            CallApi callApi = new CallApi();
+
+            if (!_isEdite)
+            {
+                return await callApi.SendPostRequest<AddProductResponse>(
+                    $"{_apiUrl}/api/v{_apiVersion}/Product/Add",
+                    data,
+                    TokenManager.Token);
+            }
+            else
+            {
+                return await callApi.SendPutRequest<EditeProductResponse>(
+                    $"{_apiUrl}/api/v{_apiVersion}/Product/Update",
+                    data,
+                    TokenManager.Token);
+            }
+        }
+
+        private void ProcessResponse(dynamic response)
+        {
+            if (response.IsSuccess && response.Data.Result)
+            {
+                ShowMessage("پیام", response.Data.Message);
+                this.DialogResult = true;
+                this.Close();
+            }
+            else if (response.Data != null)
+            {
+                ShowMessage("خطا", response.Data.Message);
+                HandleFailedResponse();
+            }
+            else
+            {
+                ShowMessage("خطا", response.Message);
+                HandleFailedResponse();
+            }
+        }
+
+        private void HandleFailedResponse()
+        {
+            if (!_isEdite)
+            {
+                ClearInputs();
+            }
+            else
+            {
                 this.DialogResult = false;
                 this.Close();
             }
+        }
+
+        private void ClearInputs()
+        {
+            txtCode.Text = "";
+            txtPrice.Text = "";
+            txtCount.Text = "";
+            txtName.Text = "";
+            cmbStatus.Text = "";
+            cmbUnitOfMeasurement.Text = "";
+            cmbSupplier.Text = "";
         }
 
         private void txtCount_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -92,6 +224,20 @@ namespace ICaNet.WindowsApp.Views.ProductViews
         {
             int result;
             e.Handled = !int.TryParse(e.Text, out result);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(_isEdite)
+            {
+                txtCode.Text = _productCode;
+                txtPrice.Text = _price.ToString();
+                txtCount.Text = _count.ToString();
+                txtName.Text = _productname;
+                cmbStatus.Text = _statuce;
+                cmbUnitOfMeasurement.Text = _unitOfMeasurement;
+                cmbSupplier.Text = _suppLier;
+            }
         }
     }
 }

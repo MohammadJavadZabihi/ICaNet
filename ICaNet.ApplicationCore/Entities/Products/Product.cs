@@ -22,7 +22,7 @@ namespace ICaNet.ApplicationCore.Entities.Products
         public string Name { get; set; }
 
         [Required]
-        public int Count { get; set; }
+        public double Count { get; set; }
 
         [Required]
         public int UnitOfMeasurementId { get; set; }

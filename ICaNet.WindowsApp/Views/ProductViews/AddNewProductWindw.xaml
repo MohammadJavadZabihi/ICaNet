@@ -9,9 +9,9 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         FlowDirection="RightToLeft"
-        FontFamily="Vazir" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+        FontFamily="Vazir" WindowStyle="None" AllowsTransparency="True" Background="Transparent" Loaded="Window_Loaded">
 
-    <Border Background="White" CornerRadius="20">
+    <Border Background="White" CornerRadius="20" BorderThickness="1"  BorderBrush="#2B2B2B">
         <Grid Margin="20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>

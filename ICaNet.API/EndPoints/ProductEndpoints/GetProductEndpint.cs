@@ -51,5 +51,6 @@ public class GetProductEndpint : EndpointBaseAsync.WithRequest<ProductRequest>.W
 
         return Ok(response);
     }
+
 }
 

@@ -9,11 +9,14 @@ namespace ICaNer.Shared.DTOs.Product
 {
     public class GetProductResponse : BaseResponse
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-        public int Count { get; set; }
+        public double Count { get; set; }
+        public double Price { get; set; }
         public string UnitOfMeasurement { get; set; }
         public string Code { get; set; } 
         public string Statuce { get; set; }
+        public string Supplier { get; set; }
 
     }
 }

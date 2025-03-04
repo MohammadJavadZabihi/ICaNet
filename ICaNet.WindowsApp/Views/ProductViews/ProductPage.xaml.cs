@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -99,9 +100,20 @@ namespace ICaNet.WindowsApp.Views.ProductViews
             await _loadFromApiService.LoadProducts(itemSkip, pageSize, txtSearcher.Text, append: false, productDataGrid);
         }
 
-        private void btnEdite_Click(object sender, RoutedEventArgs e)
+        private async void btnEdite_Click(object sender, RoutedEventArgs e)
         {
+            if(productDataGrid.SelectedItem is GetProductResponse product)
+            {
+                AddNewProductWindw addNewProductWindw = new AddNewProductWindw(true, product.Name, product.Code, product.Statuce, product.UnitOfMeasurement,
+                    product.Price, product.Count, product.Supplier, product.Id);
 
+                addNewProductWindw.ShowDialog();
+
+                if(addNewProductWindw.DialogResult == true)
+                {
+                    await _loadFromApiService.LoadProducts(itemSkip, pageSize, txtSearcher.Text, append: false, productDataGrid);
+                }
+            }
         }
 
         private async void btnDelet_Click(object sender, RoutedEventArgs e)

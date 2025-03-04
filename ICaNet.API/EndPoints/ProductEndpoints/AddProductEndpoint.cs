@@ -34,7 +34,7 @@ public class AddProductEndpoint : EndpointBaseAsync.WithRequest<AddProductReques
         if (!userRequest.Identity.IsAuthenticated || userRequest == null)
         {
             response.Result = false;
-            response.Messaeg = "خطای سطح دسترسی";
+            response.Message = "خطای سطح دسترسی";
 
             return response;
         }
@@ -44,7 +44,7 @@ public class AddProductEndpoint : EndpointBaseAsync.WithRequest<AddProductReques
         if (string.IsNullOrEmpty(userId))
         {
             response.Result = false;
-            response.Messaeg = "خطای سطح دسترسی";
+            response.Message = "خطای سطح دسترسی";
 
             return response;
         }
@@ -54,7 +54,7 @@ public class AddProductEndpoint : EndpointBaseAsync.WithRequest<AddProductReques
         if (user == null)
         {
             response.Result = false;
-            response.Messaeg = "خطای سطح دسترسی";
+            response.Message = "خطای سطح دسترسی";
 
             return response;
         }
@@ -64,13 +64,13 @@ public class AddProductEndpoint : EndpointBaseAsync.WithRequest<AddProductReques
         if(!addProduct)
         {
             response.Result = false;
-            response.Messaeg = "خطا, لطفا در ارسال اطلاعات دقت فرمایید";
+            response.Message = "خطا, لطفا در ارسال اطلاعات دقت فرمایید";
 
             return response;
         }
 
         response.Result = true;
-        response.Messaeg = "کالای جدید با موفقیت ثبت شد";
+        response.Message = "کالای جدید با موفقیت ثبت شد";
 
         return response;
     }
