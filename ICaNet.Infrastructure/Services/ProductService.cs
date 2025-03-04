@@ -122,6 +122,48 @@ namespace ICaNet.Infrastructure.Services
             }
         }
 
+        public async Task<EditeProductResponse> EditeProductAsync(EditeProductRequest editeProduct, string userId)
+        {
+            var response = new EditeProductResponse();
+
+            var product = await _coreDbContext.Products.FirstOrDefaultAsync(p => p.Id == editeProduct.Id && p.UserId == userId);
+
+            if(product == null)
+            {
+                response.Result = false;
+                response.Message = "کالا وجود ندارد";
+
+                return response;
+            }
+
+            var isExistProduct = await _coreDbContext.Products.AnyAsync(p => 
+            p.Name == editeProduct.Name && p.Code == editeProduct.Code && p.UserId == userId);
+
+            if (isExistProduct)
+            {
+                response.Result = false;
+                response.Message = "این کالا با این مشخصات موجود است";
+
+                return response;
+            }
+
+            product.Code = editeProduct.Code;
+            product.Count = editeProduct.Count;
+            product.Name = editeProduct.Name;
+            product.Price = editeProduct.Price;
+            product.Statuce = editeProduct.Statuce;
+
+            _coreDbContext.Products.Update(product);
+            await _coreDbContext.SaveChangesAsync();
+
+
+            response.Result = true;
+            response.Message = "کالا با موفقیت ویرایش شد";
+
+            return response;
+
+        }
+
         public async Task<List<GetProductResponse>> GetAllProduct(string userId, int pageSize = 10, string filter = "", int itemSkip = 0)
         {
             IQueryable<Product> productResponses = _coreDbContext.Products
