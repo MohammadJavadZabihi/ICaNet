@@ -1,4 +1,5 @@
-﻿using ICaNet.ApplicationCore.Interfaces;
+﻿using ICaNet.ApplicationCore.Entities.Pepole;
+using ICaNet.ApplicationCore.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,20 +16,20 @@ namespace ICaNet.ApplicationCore.Entities.Products
         public string UserId { get; set; }
 
         [Required]
-        public int SupplierId { get; set; }
+        public int PersonId { get; set; }
 
         [Required]
         [MaxLength(250)]
         public string Name { get; set; }
 
         [Required]
-        public double Count { get; set; }
+        public int Count { get; set; }
 
         [Required]
         public int UnitOfMeasurementId { get; set; }
 
         [Required]
-        public double Price { get; set; }
+        public long Price { get; set; }
 
         [Required]
         [MaxLength(450)]
@@ -50,7 +51,7 @@ namespace ICaNet.ApplicationCore.Entities.Products
 
 
         [ForeignKey("SupplierId")]
-        public Supplier SuppLier { get; set; }
+        public Person Person { get; set; }
 
 
         [ForeignKey("UnitOfMeasurementId")]

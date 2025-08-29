@@ -1,10 +1,5 @@
 ﻿using ICaNet.ApplicationCore.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ICaNet.ApplicationCore.Entities.Products
 {
@@ -28,7 +23,7 @@ namespace ICaNet.ApplicationCore.Entities.Products
 
         #region Relations
 
-        public List<Product> Products { get; set; }
+        public ICollection<Product> Products { get; set; }
 
         #endregion
     }

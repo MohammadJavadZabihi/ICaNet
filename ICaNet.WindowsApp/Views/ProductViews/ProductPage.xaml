@@ -20,16 +20,16 @@
                 <Button x:Name="btnAddProduct" Style="{StaticResource btnAdd}" Margin="60 0 0 0" Content="کالا جدید" Background="#00c873" Click="btnAddProduct_Click"/>
             </StackPanel>
 
-            <DataGrid x:Name="productDataGrid" Grid.Row="1" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Margin="20" Background="Transparent" Foreground="#2B2B2B">
+            <DataGrid x:Name="productDataGrid" FlowDirection="RightToLeft" Grid.Row="1" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Margin="20" Background="Transparent" Foreground="#2B2B2B">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Id}" Header="شناسه" IsReadOnly="True" CanUserResize="False" Width="auto"/>
                     <DataGridTextColumn Binding="{Binding Name}" Header="نام" IsReadOnly="True"  Width="*"/>
                     <DataGridTextColumn Binding="{Binding Code}" Header="کدشناسایی" IsReadOnly="True"  Width="*"/>
                     <DataGridTextColumn Binding="{Binding Count}" Header="تعداد" IsReadOnly="True"  Width="*"/>
                     <DataGridTextColumn Binding="{Binding UnitOfMeasurement}" Header="واحد شمارش" IsReadOnly="True"  Width="*"/>
-                    <DataGridTextColumn Binding="{Binding UnitOfMeasurement}" Header="قیمت" IsReadOnly="True"  Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Price}" Header="قیمت" IsReadOnly="True"  Width="*"/>
                     <DataGridTextColumn Binding="{Binding Supplier}" Header="تامیین کننده" IsReadOnly="True"  Width="*"/>
-                    <DataGridTextColumn Binding="{Binding Price}" Header="وضعیت" IsReadOnly="True"  Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Statuce}" Header="وضعیت" IsReadOnly="True"  Width="*"/>
 
                     <DataGridTemplateColumn Header="عملیات" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>

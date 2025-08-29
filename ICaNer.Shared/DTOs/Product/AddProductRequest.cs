@@ -7,7 +7,7 @@ namespace ICaNer.Shared.DTOs.Product
         public string Name { get; set; }
         public int Count { get; set; }
         public string UnitOfMeasurementName { get; set; }
-        public double Price { get; set; }
+        public long Price { get; set; }
         public string Code { get; set; }
         public string SupplierName { get; set; }
         public string Statuce { get; set; }

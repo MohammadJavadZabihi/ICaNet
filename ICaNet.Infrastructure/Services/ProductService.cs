@@ -1,5 +1,6 @@
 ﻿using ICaNer.Shared.DTOs.Product;
 using ICaNet.ApplicationCore.Entities;
+using ICaNet.ApplicationCore.Entities.Pepole;
 using ICaNet.ApplicationCore.Entities.Products;
 using ICaNet.ApplicationCore.Interfaces;
 using ICaNet.Infrastructure.Data;
@@ -29,24 +30,22 @@ namespace ICaNet.Infrastructure.Services
 
             try
             {
-                var supplier = await _coreDbContext.Suppliers
+                var supplier = await _coreDbContext.People
                                     .FirstOrDefaultAsync(s => s.Name == addProduct.SupplierName);
 
                 if (supplier == null)
                 {
-                    supplier = new Supplier
+                    supplier = new Person
                     {
                         EmailAddress = "ندارد",
                         Name = addProduct.SupplierName,
                         PhoneNumber = "ندارد",
-                        PhysicalAddress = "ندارد",
-                        RemainingAmount = 0,
-                        Statuce = "نامشخص",
-                        TaxNumber = "ندارد",
-                        UserId = userId
+                        Address = "ندارد",
+                        UserId = userId,
+                        Type = "حقیقی"
                     };
 
-                    await _coreDbContext.Suppliers.AddAsync(supplier);
+                    await _coreDbContext.People.AddAsync(supplier);
                     await _coreDbContext.SaveChangesAsync();
 
 
@@ -78,7 +77,7 @@ namespace ICaNet.Infrastructure.Services
                     CreatedDate = DateTime.UtcNow,
                     ModifiedDate = DateTime.UtcNow,
                     Statuce = addProduct.Statuce,
-                    SupplierId = supplier.Id,
+                    PersonId = supplier.Id,
                     UnitOfMeasurementId = unitOfMeasurement.Id,
                     UserId = userId
                 };
@@ -157,7 +156,7 @@ namespace ICaNet.Infrastructure.Services
         {
             IQueryable<Product> productResponses = _coreDbContext.Products
                 .Include(p => p.UnitOfMeasurement)
-                .Include(p => p.SuppLier)
+                .Include(p => p.Person)
                 .Where(p => p.UserId == userId);
 
             if (!string.IsNullOrEmpty(filter))
@@ -170,7 +169,7 @@ namespace ICaNet.Infrastructure.Services
                 .Take(pageSize)
                 .Select(p => new GetProductResponse
                 {
-                    Supplier = p.SuppLier.Name,
+                    Supplier = p.Person.Name,
                     Price = p.Price,
                     Name = p.Name,
                     Code = p.Code,

@@ -24,8 +24,8 @@ namespace ICaNet.WindowsApp.Views
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var fadeIn = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(1.75));
-            this.BeginAnimation(UIElement.OpacityProperty, fadeIn);
+            //var fadeIn = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(1.75));
+            //this.BeginAnimation(UIElement.OpacityProperty, fadeIn);
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
